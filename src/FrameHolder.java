@@ -1,8 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.regex.MatchResult;
 // gitin
+
 /**
  * Created by Denis on 28.01.2016.
  */
@@ -24,13 +24,13 @@ public class FrameHolder {
         JPanel eingabePanel = new JPanel(new GridLayout(0, 2));
         JPanel buttonPanel = new JPanel(new BorderLayout());
 
-        JTextField klimmhangText = new JTextField("Klimmhang in s: ", 5);
-        klimmhangText.setEditable(false);
-        JTextField klimmhangEingabe = new JTextField(20);
-
         JTextField sprintText = new JTextField("Sprint 10x11m in s: ", 5);
         sprintText.setEditable(false);
         JTextField sprintEingabe = new JTextField(20);
+
+        JTextField klimmhangText = new JTextField("Klimmhang in s: ", 5);
+        klimmhangText.setEditable(false);
+        JTextField klimmhangEingabe = new JTextField(20);
 
         JTextField laufText = new JTextField("1000m-Lauf in s: ", 5);
         laufText.setEditable(false);
@@ -40,10 +40,11 @@ public class FrameHolder {
         alterText.setEditable(false);
         JTextField alter = new JTextField(3);
 
-        eingabePanel.add(klimmhangText);
-        eingabePanel.add(klimmhangEingabe);
+
         eingabePanel.add(sprintText);
         eingabePanel.add(sprintEingabe);
+        eingabePanel.add(klimmhangText);
+        eingabePanel.add(klimmhangEingabe);
         eingabePanel.add(laufText);
         eingabePanel.add(laufEingabe);
         eingabePanel.add(alterText);
@@ -66,7 +67,18 @@ public class FrameHolder {
         gesamtAusgabePanel.add(ergebnisWert);
         gesamtAusgabePanel.add(note);
 
-//          Disziplin:
+
+        JTextField headingSprint = new JTextField("Sprint: ");
+        headingSprint.setEditable(false);
+        gesamtAusgabePanel.add(headingSprint);
+        JTextField ergebnisSprint = new JTextField();
+        ergebnisSprint.setEditable(false);
+        gesamtAusgabePanel.add(ergebnisSprint);
+        JTextField noteSprint = new JTextField();
+        noteSprint.setEditable(false);
+        gesamtAusgabePanel.add(noteSprint);
+
+        //          Disziplin:
         JTextField headingKlimm = new JTextField("Klimmhang: ");
         headingKlimm.setEditable(false);
         gesamtAusgabePanel.add(headingKlimm);
@@ -78,16 +90,6 @@ public class FrameHolder {
         JTextField noteKlimm = new JTextField();
         noteKlimm.setEditable(false);
         gesamtAusgabePanel.add(noteKlimm);
-
-        JTextField headingSprint = new JTextField("Sprint: ");
-        headingSprint.setEditable(false);
-        gesamtAusgabePanel.add(headingSprint);
-        JTextField ergebnisSprint = new JTextField();
-        ergebnisSprint.setEditable(false);
-        gesamtAusgabePanel.add(ergebnisSprint);
-        JTextField noteSprint = new JTextField();
-        noteSprint.setEditable(false);
-        gesamtAusgabePanel.add(noteSprint);
 
         JTextField headingLauf = new JTextField("Lauf: ");
         headingLauf.setEditable(false);
@@ -110,7 +112,7 @@ public class FrameHolder {
         noteGesamt.setEditable(false);
         gesamtAusgabePanel.add(noteGesamt);
 
-        JCheckBox frauBox= new JCheckBox("Frau", false);
+        JCheckBox frauBox = new JCheckBox("Frau", false);
         buttonPanel.add(frauBox, BorderLayout.CENTER);
 
         JButton auswerten = new JButton("Auswerten");
@@ -124,12 +126,19 @@ public class FrameHolder {
         ActionListener Leerer = new Rechner(klimmhangEingabe, sprintEingabe, laufEingabe, ergebnisKlimm, ergebnisSprint, ergebnisLauf, noteKlimm, noteSprint, noteLauf, noteGesamt, ergebnisGesamt, alter, frauBox);
         leeren.addActionListener(Leerer);
 
-        JLabel copyrightLabel=new JLabel("Oetken, Denis Stand: 01.02.2016");
+//        String vorName, String nachName, int alter, String gehoertZu
+        JButton speichern = new JButton("Speichern");
+        buttonPanel.add(speichern, BorderLayout.SOUTH);
+        int jahre=Integer.parseInt(alter.getText());
+        ActionListener Speicherer = new Sportler("Denis","Oetken",jahre,"01");
+        speichern.addActionListener(Speicherer);
+
+        JLabel copyrightLabel = new JLabel("Oetken, Denis Stand: 01.02.2016");
         copyrightLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
         panelAlles.add(gesamtEingabePanel, BorderLayout.NORTH);
-        panelAlles.add(gesamtAusgabePanel,BorderLayout.CENTER);
-        panelAlles.add(copyrightLabel,BorderLayout.SOUTH);
+        panelAlles.add(gesamtAusgabePanel, BorderLayout.CENTER);
+        panelAlles.add(copyrightLabel, BorderLayout.SOUTH);
 
 
         gesamtEingabePanel.add(gesamtAusgabePanel, BorderLayout.SOUTH);
